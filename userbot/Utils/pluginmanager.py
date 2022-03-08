@@ -54,10 +54,12 @@ def load_module(shortname, plugin_path=None):
         mod.edit_or_reply = edit_or_reply
         mod.logger = logging.getLogger(shortname)
         mod.borg = client
+        
+        sys.modules["userbot.events"] = userbot.utils
         spec.loader.exec_module(mod)
         # for imports
-        sys.modules["userbot.plugins." + shortname] = mod
-        LOGS.info("Successfully imported " + shortname)
+        sys.modules["userbot.plugins."+shortname] = mod
+        print("Successfully (re)imported "+shortname)
 
 
 def remove_plugin(shortname):
